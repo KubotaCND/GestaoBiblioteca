@@ -227,8 +227,10 @@ namespace GestaoBiblioteca
                             foreach (var item in biblioteca.Livros)
                             {
                                 Console.WriteLine($"{item.Titulo}");
-                                read = Console.ReadLine();
+                                
                             }
+                            Console.WriteLine("Voltar ao menu inicial?");
+                            read = Console.ReadLine();
 
                         }
                         else if (read == "6")
@@ -236,8 +238,10 @@ namespace GestaoBiblioteca
                             foreach (var item in biblioteca.Pessoas)
                             {
                                 Console.WriteLine($"{item.Nome}");
-                                read = Console.ReadLine();
+                                
                             }
+                            Console.WriteLine("Voltar ao menu inicial?");
+                            read = Console.ReadLine();
                         }
                         else if (read == "7")
                         {
