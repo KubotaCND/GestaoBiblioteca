@@ -1,4 +1,4 @@
-﻿using System.Runtime.Intrinsics.Arm;
+using System.Runtime.Intrinsics.Arm;
 
 namespace GestaoBiblioteca
 {
@@ -24,10 +24,10 @@ namespace GestaoBiblioteca
 
 
 
-                    while (read != "Sim")
+                    while (read != "Sim"&& read!="")
                     {
-
-                        if (read == "1")
+                        switch (read) { 
+                        case "1":
                         {
                             string nome, cpf, telefone;
                             int iDP;
@@ -60,11 +60,12 @@ namespace GestaoBiblioteca
                             Console.WriteLine("Voltar ao menu inicial?");
                             read = Console.ReadLine();
                         }
+                        break;
 
 
 
 
-                        else if (read == "2")
+                            case "2":
                         {
                             string titulo, editora, autor;
                             int idl, qtdex;
@@ -101,7 +102,10 @@ namespace GestaoBiblioteca
 
 
                         }
-                        else if (read == "3")
+                                break;
+
+
+                            case "3":
                         {
                             int idp, idl;
                             Console.WriteLine("Digite o ID da pessoa:");
@@ -163,10 +167,11 @@ namespace GestaoBiblioteca
 
 
                         }
+                                break;
 
 
 
-                        else if (read == "4")
+                            case "4":
                         {
                             int idp, idl;
                             Console.WriteLine("Digite o ID da pessoa:");
@@ -222,18 +227,20 @@ namespace GestaoBiblioteca
                             }
 
                         }
-                        else if (read == "5")
+                                break;
+                            case "5":
                         {
                             foreach (var item in biblioteca.Livros)
                             {
                                 Console.WriteLine($"{item.Titulo}");
-                                
+                               
                             }
                             Console.WriteLine("Voltar ao menu inicial?");
                             read = Console.ReadLine();
 
                         }
-                        else if (read == "6")
+                                break;
+                            case "6":
                         {
                             foreach (var item in biblioteca.Pessoas)
                             {
@@ -243,7 +250,8 @@ namespace GestaoBiblioteca
                             Console.WriteLine("Voltar ao menu inicial?");
                             read = Console.ReadLine();
                         }
-                        else if (read == "7")
+                                break;
+                            case "7":
                         {
                             foreach (var item in biblioteca.Pessoas)
                             {
@@ -255,11 +263,20 @@ namespace GestaoBiblioteca
                                 }
                             }
                         }
+                                break;
+
+                            case "":
+                                { read=Console.ReadLine(); }
+                                break;
+                                
 
 
                     }
-                } while (read != "");
+                } 
+            } while (read != "");
+              
+              
             }
-        }
     }
+}
 }
