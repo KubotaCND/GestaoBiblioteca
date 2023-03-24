@@ -1,4 +1,4 @@
-﻿using System.Runtime.Intrinsics.Arm;
+using System.Runtime.Intrinsics.Arm;
 
 namespace GestaoBiblioteca
 {
@@ -115,9 +115,16 @@ namespace GestaoBiblioteca
                                     Console.WriteLine("Digite o ID do livro:");
                                     idl = int.Parse(Console.ReadLine());
 
-                                    // Check if the person exists
-                                    Pessoa pessoa = biblioteca.Pessoas.FirstOrDefault(p => p.IDP == idp);
-                                    if (pessoa == null)
+                                    bool pessoaEncontrada = false;
+                                    for (int i = 0; i < biblioteca.Pessoas.Count; i++)
+                                    {
+                                        if (biblioteca.Pessoas[i].IDP == idp)
+                                        {
+                                            pessoaEncontrada = true;
+                                            break;
+                                        }
+                                    }
+                                    if (!pessoaEncontrada)
                                     {
                                         Console.WriteLine("Usuário não cadastrado");
                                         Console.WriteLine("Voltar ao menu inicial?");
@@ -125,9 +132,16 @@ namespace GestaoBiblioteca
                                         break;
                                     }
 
-                                    // Check if the book exists
-                                    Livro livro = biblioteca.Livros.FirstOrDefault(l => l.ID == idl);
-                                    if (livro == null)
+                                    bool livroEncontrado = false;
+                                    for (int i = 0; i < biblioteca.Livros.Count; i++)
+                                    {
+                                        if (biblioteca.Livros[i].ID == idl)
+                                        {
+                                            livroEncontrado = true;
+                                            break;
+                                        }
+                                    }
+                                    if (!livroEncontrado)
                                     {
                                         Console.WriteLine("Livro não cadastrado");
                                         Console.WriteLine("Voltar ao menu inicial?");
@@ -135,20 +149,30 @@ namespace GestaoBiblioteca
                                         break;
                                     }
 
-                                   
-
-                             
-                                    pessoa.AdicionarLivroLista(livro);
-                                    biblioteca.EmprestarLivroBiblioteca(idl, idp);
-                                    livro.EmprestarLivro(1);
-                                    Console.WriteLine($"O Livro {livro.Titulo} foi emprestado para a pessoa {pessoa.Nome}");
-                                    Console.WriteLine("Voltar ao menu inicial?");
-                                    read = Console.ReadLine();
+                                    foreach (var pessoa in biblioteca.Pessoas)
+                                    {
+                                        if (pessoa.IDP == idp)
+                                        {
+                                            foreach (var livro in biblioteca.Livros)
+                                            {
+                                                if (livro.ID == idl)
+                                                {
+                                                    pessoa.AdicionarLivroLista(livro);
+                                                    biblioteca.EmprestarLivroBiblioteca(idl, idp);
+                                                    livro.EmprestarLivro(1);
+                                                    Console.WriteLine($"O Livro {livro.Titulo} foi emprestado para a pessoa\r\n{pessoa.Nome}");
+                                                    Console.WriteLine("Voltar ao menu inicial?");
+                                                    read = Console.ReadLine();
+                                                }
+                                            }
+                                        }
+                                    }
                                 }
                                 break;
 
 
 
+                           
                             case "4":
                                 {
                                     int idp, idl;
@@ -157,40 +181,52 @@ namespace GestaoBiblioteca
                                     Console.WriteLine("Digite o ID do livro:");
                                     idl = int.Parse(Console.ReadLine());
 
-                                    // Check if the person exists
-                                    Pessoa pessoa = biblioteca.Pessoas.FirstOrDefault(p => p.IDP == idp);
-                                    if (pessoa == null)
+                                    bool pessoaEncontrada = false;
+                                    bool livroEncontrado = false;
+
+                                    // Procura pela pessoa com o ID informado
+                                    for (int i = 0; i < biblioteca.Pessoas.Count; i++)
+                                    {
+                                        if (biblioteca.Pessoas[i].IDP == idp)
+                                        {
+                                            pessoaEncontrada = true;
+
+                                            // Procura pelo livro com o ID informado
+                                            for (int j = 0; j < biblioteca.Livros.Count; j++)
+                                            {
+                                                if (biblioteca.Livros[j].ID == idl)
+                                                {
+                                                    livroEncontrado = true;
+
+                                                    // Remove o livro da lista da pessoa
+                                                    biblioteca.Pessoas[i].RemoverLivroLista(idl);
+
+                                                    // Atualiza o status do livro e da biblioteca
+                                                    biblioteca.DevolverLivroBiblioteca(idl, idp);
+                                                    biblioteca.Livros[j].DevolverLivro(1);
+
+                                                    Console.WriteLine($"O Livro {biblioteca.Livros[j].Titulo} foi devolvido com sucesso.");
+                                                    Console.WriteLine("Voltar ao menu inicial?");
+                                                    read = Console.ReadLine();
+                                                    break;
+                                                }
+                                            }
+                                            break;
+                                        }
+                                    }
+
+                                    if (!pessoaEncontrada)
                                     {
                                         Console.WriteLine("Usuário não cadastrado");
                                         Console.WriteLine("Voltar ao menu inicial?");
                                         read = Console.ReadLine();
-                                        break;
                                     }
-
-                                    // Check if the book exists
-                                    Livro livro = biblioteca.Livros.FirstOrDefault(l => l.ID == idl);
-                                    if (livro == null)
+                                    else if (!livroEncontrado)
                                     {
                                         Console.WriteLine("Livro não cadastrado");
                                         Console.WriteLine("Voltar ao menu inicial?");
                                         read = Console.ReadLine();
-                                        break;
                                     }
-
-                                    if (!pessoa.LivrosEmprestados.Contains(livro))
-                                    {
-                                        Console.WriteLine($"O livro {livro.Titulo} não está emprestado para a pessoa {pessoa.Nome}");
-                                        Console.WriteLine("Voltar ao menu inicial?");
-                                        read = Console.ReadLine();
-                                        break;
-                                    }
-
-                                    pessoa.RemoverLivroLista(idl);
-                                    biblioteca.DevolverLivroBiblioteca(idl, idp);
-                                    livro.DevolverLivro(1);
-                                    Console.WriteLine($"O Livro {livro.Titulo} foi devolvido pela pessoa {pessoa.Nome}");
-                                    Console.WriteLine("Voltar ao menu inicial?");
-                                    read = Console.ReadLine();
                                 }
                                 break;
                             case "5":
