@@ -13,8 +13,8 @@ namespace GestaoBiblioteca
 
         public Biblioteca(List<Pessoa> pessoas, List<Livro> livros)
         {
-           Pessoas = pessoas;
-            Livros = livros;
+            Pessoas = pessoas ?? new List<Pessoa>();
+            Livros = livros ?? new List<Livro>();
         }
 
         public void CadastrarPessoa(Pessoa pessoa)
