@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,10 +11,10 @@ namespace GestaoBiblioteca
         public List<Pessoa> Pessoas { get; set; }
         public List<Livro> Livros { get; set; }
 
-        public Biblioteca(List<Pessoa> pessoas, List<Livro> livros)
+        public Biblioteca()
         {
-            Pessoas = pessoas ?? new List<Pessoa>();
-            Livros = livros ?? new List<Livro>();
+            Pessoas = new List<Pessoa>();
+            Livros = new List<Livro>();
         }
 
         public void CadastrarPessoa(Pessoa pessoa)
@@ -76,3 +76,4 @@ namespace GestaoBiblioteca
         }
     }
 }
+
