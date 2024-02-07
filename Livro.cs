@@ -23,10 +23,13 @@ namespace GestaoBiblioteca
         }
 
         public int EmprestarLivro(int quantidadeEmprestada)
-        {   return QtdeExemplares - quantidadeEmprestada;}
+        {
+            this.QtdeExemplares -= quantidadeEmprestada;
+        return this.QtdeExemplares;}
 
         public int DevolverLivro(int quantidadeDevolvida)
-        {   return QtdeExemplares + quantidadeDevolvida;}
+        {   this.QtdeExemplares += quantidadeDevolvida;
+        return this.QtdeExemplares;}
 
 
 
