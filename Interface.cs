@@ -9,13 +9,7 @@ namespace GestaoBiblioteca
             string read;
 
             {
-                Pessoa a1 = new(0, "inicio", "888888888", "188888888888");
-                List<Pessoa> pessoas = new List<Pessoa>();
-                pessoas.Add(a1);
-                Livro l1 = new(0, "aaa", "a", "a", 0);
-                List<Livro> livros = new List<Livro>();
-                livros.Add(l1);
-                Biblioteca biblioteca = new Biblioteca(pessoas,livros);
+                Biblioteca biblioteca = new Biblioteca();
                 
                 
 
@@ -267,8 +261,9 @@ namespace GestaoBiblioteca
                                 break;
 
                             case "":
-                                { read=Console.ReadLine(); }
-                                break;
+                                { read=Console.ReadLine(); 
+                                break;}
+                                
                                 
 
 
